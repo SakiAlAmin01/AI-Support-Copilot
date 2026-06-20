@@ -5,11 +5,10 @@ import { GoogleGenAI } from '@google/genai';
 
 const app = express();
 app.use(cors());
-app.use(express.json({ limit: '50mb' })); // ইমেজের জন্য মেমোরি লিমিট এক্সটেন্ড করা হলো
+app.use(express.json({ limit: '50mb' })); 
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-// 🌐 SLACK WEBHOOK URL (অপশনাল: ইন্টারভিউ বোর্ডে দেখানোর জন্য জাস্ট তোমার স্ল্যাক লিংকে বদলে নেবে)
 const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL || "";
 
 async function sendSlackNotification(ticket, note) {
@@ -32,7 +31,6 @@ app.post('/api/support', async (req, res) => {
     try {
         const { systemPrompt, userIssue, imageParts, actionType } = req.body;
 
-        // জেমিনিকে কাস্টমারের মুড অ্যানালাইসিস করতে বাধ্য করার জন্য রুল এনফোর্সমেন্ট
         let contentsArray = [
             `CRITICAL RULE: You must always start your response text with exactly '[SENTIMENT: VALUE]' on the very first line, where VALUE must be either CRITICAL, FRUSTRATED, or NEUTRAL based on customer mood. Then write the actual response.\n\nContext Instruction: ${systemPrompt}\n\nCustomer Ticket: ${userIssue}`
         ];
@@ -54,7 +52,6 @@ app.post('/api/support', async (req, res) => {
 
         const finalOutput = response.text;
 
-        // 🚀 অটো-ওয়েবহুক ট্রিগার: যদি একশনটি 'escalate' হয় এবং জেমিনি 'YES' ডিটেক্ট করে
         if (actionType === 'escalate' && finalOutput.toUpperCase().includes('YES')) {
             console.log("⚠️ Escalation confirmed by AI. Launching Slack Automation Gateway...");
             sendSlackNotification(userIssue, finalOutput.replace(/\[SENTIMENT:.*?\]/, '').trim());
