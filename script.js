@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setupDragAndDrop();
 });
 
-// 📥 ১. Drag & Drop লজিক
 function setupDragAndDrop() {
     const dropZone = document.getElementById('dropZone');
     if (!dropZone) return;
@@ -40,7 +39,6 @@ function setupDragAndDrop() {
     }, false);
 }
 
-// 📸 ২. ফাইল সিলেক্ট ও প্রিভিউ রেন্ডারার
 function handleFileSelect(files) {
     const file = files[0];
     if (!file) return;
@@ -74,7 +72,6 @@ function handleFileSelect(files) {
     }
 }
 
-// ✕ ৩. ফাইল রিমুভ ফাংশন
 function removeImage(event) {
     if (event) event.stopPropagation();
     
@@ -98,7 +95,6 @@ function removeImage(event) {
     if (content) content.style.display = 'block'; 
 }
 
-// ⚙️ ৪. ফাইল রিডার গেটওয়ে (ইমেজ -> Base64, কোড -> Text)
 function processAttachedFile(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -120,7 +116,6 @@ function processAttachedFile(file) {
     });
 }
 
-// 📋 ৫. ক্লিপবোর্ড কপি ও ডাউনলোড ফাংশน
 function copyToClipboard() {
     const outputResult = document.getElementById('outputResult');
     if (!outputResult) return;
@@ -144,7 +139,6 @@ function downloadReport() {
     anchor.click();
 }
 
-// 📝 ৬. উন্নত মার্কডাউন পার্সার (কোড ব্লক ও টেক্সট রেসপন্স ভিউয়ার ফিক্স)
 function parseMarkdown(text) {
     return text
         .replace(/```([\s\S]*?)```/gm, '<div class="code-block-wrapper">$1</div>')
@@ -155,7 +149,6 @@ function parseMarkdown(text) {
         .replace(/^\s*-\s*(.*$)/gim, '<li style="margin-left: 15px; margin-bottom: 4px; color: #cbd5e1;">$1</li>');
 }
 
-// ⚡ ৭. আউটপুট ও সেন্টিমেন্ট ডিসপ্লে
 function handleResponseDisplay(rawText, userTicket, actionType) {
     const badge = document.getElementById('sentimentBadge');
     const copyBtn = document.getElementById('copyBtn');
@@ -185,11 +178,9 @@ function handleResponseDisplay(rawText, userTicket, actionType) {
     saveTicketToHistory(userTicket, cleanText, actionType);
 }
 
-// 💾 ৮. LocalStorage হিস্ট্রি ম্যানেজমেন্ট (ফাইল আপলোড বাগ ফিক্সড)
 function saveTicketToHistory(ticketText, aiResponse, actionType) {
     let history = JSON.parse(localStorage.getItem("ai_support_history")) || [];
     
-    // ডুপ্লিকেট চেকিং এভয়েড করা
     if (history.some(item => item.ticket === ticketText && item.type === actionType.toUpperCase())) return;
     
     const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -201,7 +192,7 @@ function saveTicketToHistory(ticketText, aiResponse, actionType) {
         type: actionType.toUpperCase() 
     });
     
-    if (history.length > 15) history.pop(); // ধারণক্ষমতা ৮ থেকে বাড়িয়ে ১৫ করা হলো
+    if (history.length > 15) history.pop(); 
     localStorage.setItem("ai_support_history", JSON.stringify(history));
     renderHistory();
 }
@@ -220,7 +211,6 @@ function renderHistory() {
         div.style.flexDirection = 'column';
         div.style.gap = '4px';
         
-        // টাইটেল অনেক বড় হলে সেটিকে ট্রাঙ্কেট (শর্ট) করার লজিক
         let displayTitle = item.ticket;
         if (displayTitle.length > 35) {
             displayTitle = displayTitle.substring(0, 32) + "...";
@@ -261,7 +251,6 @@ function clearHistory() {
     }
 }
 
-// 🚀 ৯. মেইন অপারেশন API ইন্টিগ্রেশন
 async function analyzeIssue(type) {
     const issueInputObj = document.getElementById('issueInput');
     const imageInputObj = document.getElementById('imageInput');
