@@ -339,14 +339,13 @@ img:not([src]), img[src=""] { visibility: hidden !important; display: none !impo
     font-size: 0.9rem; 
     color: #e2e8f0;
     width: 100%;
-    /* ⚡ ফিক্স: এখান থেকে গ্লোবাল pre-wrap সরানো হয়েছে যাতে আইডল স্টেট নষ্ট না হয় */
 }
 
-/* 🎯 System Idle (সেন্টার ও ব্ল্যাঙ্ক স্পেস ফিক্স) */
+/* 🎯 System Idle */
 .initial-state { 
     display: flex !important;
-    justify-content: center; /* হরাইজন্টাল সেন্টার */
-    align-items: center;     /* ভার্টিক্যাল সেন্টার */
+    justify-content: center; 
+    align-items: center;    
     text-align: center;      
     height: 100%; 
     width: 100%;
@@ -356,7 +355,7 @@ img:not([src]), img[src=""] { visibility: hidden !important; display: none !impo
     font-style: italic;
     padding: 20px;
     box-sizing: border-box;
-    white-space: normal !important; /* 🔥 ফিক্স: বাম পাশের ফাঁকা জায়গা রিমুভ করার জন্য */
+    white-space: normal !important; 
 }
 
 /* 💻 Code Blocks formatting */
