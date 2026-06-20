@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Support Agent Dashboard (SaaS Pro)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+
+    <div class="dashboard-container scale-up">
+        <header class="dashboard-header">
+            <div class="logo-badge">⚡ AI-Agent Pro v3.5 (Enterprise)</div>
+            <h1>Smart Support Copilot</h1>
+            <p>Multimodal Ticket Diagnostics, Sentiment Analysis & Dev-Ops Escalation Gateway</p>
+        </header>
+
+        <main class="dashboard-grid">
+            <div class="workspace-card history-panel">
+                <h3><span class="icon">📜</span> Recent Tickets</h3>
+                <div id="historyList" class="history-list"></div>
+                <button class="clear-history-btn" onclick="clearHistory()">Clear History</button>
+            </div>
+
+            <div class="workspace-card input-workspace">
+                <div class="input-group">
+                    <label for="issueInput"><span class="icon">📝</span> Ticket Description</label>
+                    <textarea id="issueInput" placeholder="Describe the WordPress conflict, server crash logs, or WooCommerce error..."></textarea>
+                </div>
+
+                <div class="upload-group">
+                    <label><span class="icon">📸</span> Error Screenshot / Config File</label>
+                    <div class="drop-zone" id="dropZone" onclick="document.getElementById('imageInput').click()">
+                        <div class="drop-zone-content" id="dropZoneContent">
+                            <span class="upload-icon">📥</span>
+                            <p class="drop-text">Click to upload or drag file/screenshot</p>
+                            <p class="drop-subtext">Supports PNG, JPG, PHP, LOG, TXT</p>
+                        </div>
+                        <input type="file" id="imageInput" accept="image/*,.php,.log,.txt" style="display: none;" onchange="handleFileSelect(this.files)">
+                        <div id="imagePreviewContainer" class="preview-hidden">
+    <div id="fileTextIcon" style="display:none; font-size: 3rem; margin-top: 15px;">📄</div>
+    <div id="fileNameDisplay" style="color: #94a3b8; font-size: 0.85rem; margin-top: 8px; font-weight: 500; word-break: break-all; padding: 0 10px;"></div>
+    
+    <img id="imagePreview" src="" alt="Screenshot Preview">
+    <div class="remove-btn" onclick="removeImage(event)">✕</div>
+</div>
+                    </div>
+                </div>
+                
+                <div class="action-control">
+                    <button class="action-btn btn-analyze" onclick="analyzeIssue('analyze')">🔍 Analyze Root</button>
+                    <button class="action-btn btn-steps" onclick="analyzeIssue('steps')">🛠️ Generate Steps</button>
+                    <button class="action-btn btn-bug" onclick="analyzeIssue('bug')">🐛 Bug Report</button>
+                    <button class="action-btn btn-escalate" onclick="analyzeIssue('escalate')">⚠️ Escalation Check</button>
+                </div>
+            </div>
+
+            <div class="workspace-card output-workspace">
+                <div class="output-header">
+                    <h3><span class="icon">⚡</span> AI Insights</h3>
+                    <div class="header-actions">
+                        <span id="sentimentBadge" class="badge hidden"></span>
+                        <button id="copyBtn" class="copy-action-btn hidden" onclick="copyToClipboard()">📋 Copy</button>
+                        <button id="downloadBtn" class="copy-action-btn hidden" onclick="downloadReport()" style="margin-left: 5px;">📥 Download</button>
+                    </div>
+                    <div id="loading" class="spinner-loader hidden"></div>
+                </div>
+                <div id="outputResult" class="output-display initial-state">
+                    System idle. Provide ticket details to trigger the Copilot gateway...
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
