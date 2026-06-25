@@ -119,7 +119,7 @@ Store previous analyses locally and continue investigations without losing conte
 
 Uploading AI Support Agent Dashboard (SaaS Pro).mp4…
 
-<img width="1452" height="667" alt="ai 3" src="https://github.com/user-attachments/assets/687010c5-d2bc-422f-9203-8e142add4405" />
+<img width="1478" height="738" alt="Ai answer" src="https://github.com/user-attachments/assets/83106264-1cce-4718-9a99-7509be887ce9" />
 <img width="284" height="494" alt="ai 2" src="https://github.com/user-attachments/assets/83d1c1fd-3ef0-4409-bf83-8dd46bbc0ee3" />
 <img width="1904" height="909" alt="ai 1" src="https://github.com/user-attachments/assets/6073e4a4-7857-44fe-8e7c-4ccb959c0cc6" />
 
